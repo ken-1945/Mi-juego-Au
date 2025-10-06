@@ -1,6 +1,8 @@
+// ====== VARIABLES DEL LOGIN ======
 const passwordInput = document.getElementById("password");
 const buttons = document.querySelectorAll(".numpad button");
 const login = document.getElementById("login");
+const instructions = document.getElementById("instructions");
 const game = document.getElementById("game");
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -9,9 +11,13 @@ const endMessage = document.getElementById("endMessage");
 const restartBtn = document.getElementById("restartBtn");
 const scoreBoard = document.getElementById("score");
 
+const startGameBtn = document.getElementById("startGameBtn");
+const skipBtn = document.getElementById("skipBtn");
+
 canvas.width = 400;
 canvas.height = 600;
 
+// ====== LOGIN ======
 let password = "";
 const correctPassword = "031025";
 
@@ -23,8 +29,8 @@ buttons.forEach(btn => {
     } else if (btn.id === "enter") {
       if (password === correctPassword) {
         login.style.display = "none";
-        game.style.display = "block";
-        startGame();
+        // Mostrar pantalla de instrucciones
+        instructions.style.display = "flex";
       } else {
         password = "";
         passwordInput.value = "";
@@ -36,12 +42,19 @@ buttons.forEach(btn => {
   });
 });
 
-// VARIABLES DE JUEGO
+// ====== VARIABLES DE JUEGO ======
 let player, bullets, enemies, score, lives, gameOver;
 let bgImg = new Image();
 bgImg.src = "img/Fondo de juego.png";
 
+// Tiempo visible del enemigo al ser golpeado (ms)
+const ENEMY_HIT_TIME = 1000;
+
+// ====== FUNCIONES DEL JUEGO ======
 function startGame() {
+  instructions.style.display = "none";
+  game.style.display = "block";
+
   player = { x: canvas.width / 2 - 35, y: canvas.height - 100, w: 70, h: 70, img: new Image() };
   player.img.src = "img/player.png";
   bullets = [];
@@ -63,7 +76,7 @@ function movePlayer(e) {
 }
 
 function shoot() {
-  bullets.push({ x: player.x + player.w / 2, y: player.y, emoji: "❤️" });
+  bullets.push({ x: player.x + player.w / 2 - 10, y: player.y, emoji: "❤️" });
 }
 
 function spawnEnemy() {
@@ -76,8 +89,6 @@ function gameLoop() {
   if (gameOver) return;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Fondo con imagen
   ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
 
   // Jugador
@@ -85,7 +96,7 @@ function gameLoop() {
 
   // Balas
   bullets.forEach((b, i) => {
-    ctx.font = "28px Arial";
+    ctx.font = "30px Arial";
     ctx.fillText(b.emoji, b.x, b.y);
     b.y -= 6;
     if (b.y < 0) bullets.splice(i, 1);
@@ -112,11 +123,16 @@ function gameLoop() {
     bullets.forEach((b, bi) => {
       if (!en.hit && collidePoint(b, en)) {
         en.hit = true;
-        en.img.src = "img/enemy-hit.png"; // 
-        setTimeout(() => enemies.splice(i, 1), 300); 
+        en.img.src = "img/enemy-hit.png"; 
         bullets.splice(bi, 1);
         score++;
         updateScore();
+
+        // Mostrar la imagen golpeada 1 segundo y eliminar enemigo
+        setTimeout(() => {
+          enemies.splice(i, 1);
+        }, ENEMY_HIT_TIME);
+
         if (score >= 10) winGame();
       }
     });
@@ -137,14 +153,13 @@ function loseLife() {
   lives--;
   vibrate();
   updateScore();
-  if (lives <= 0) endGame("😢 ¡Perdiste!");
+  if (lives <= 0) endGame("😢 ¡Gordita perdiste no me amas mucho!");
 }
 
 function vibrate() {
   if (navigator.vibrate) {
-    navigator.vibrate(300); // en móviles
+    navigator.vibrate(300);
   } else {
-    // Simular vibración en PC
     canvas.style.transform = "translate(5px, 5px)";
     setTimeout(() => canvas.style.transform = "translate(0, 0)", 100);
   }
@@ -162,7 +177,7 @@ function endGame(msg) {
 }
 
 function winGame() {
-  window.location.href = "win.html";
+  window.location.href = "winner.html";
 }
 
 restartBtn.addEventListener("click", () => {
@@ -171,6 +186,17 @@ restartBtn.addEventListener("click", () => {
   startGame();
 });
 
+// ====== CONTROL DE INSTRUCCIONES ======
+startGameBtn.addEventListener("click", () => {
+  startGame();
+});
+
+skipBtn.addEventListener("click", () => {
+  startGame();
+});
+
+// ====== ENEMIGOS ======
 setInterval(spawnEnemy, 1500);
+
 
 
