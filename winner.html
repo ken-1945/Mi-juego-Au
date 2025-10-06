@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 ¡Ganaste! 🎉</title>
+  <style>
+    /* ===== Estilos generales ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url("img/fondo-win.png") no-repeat center center/cover;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    /* Fondo oscuro semitransparente */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.19);
+      z-index: 1;
+    }
+
+    /* Contenedor del mensaje */
+    .winner-container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Mensaje de "Ganaste" */
+    #winnerMessage {
+      font-size: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in, font-size 1s ease-in;
+      text-shadow: 0 0 30px #ff4081, 0 0 60px #ff80ab;
+      font-weight: 700;
+    }
+
+    /* Botón para volver a jugar */
+    button {
+      margin-top: 25px;
+      padding: 15px 35px;
+      font-size: 22px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(45deg, #ff4b2b, #ff416c);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, #ff1a4d, #ff4d6d);
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="winner-container">
+    <div id="winnerMessage"> 🥳💗 !Ganaste! ¡Te amo mucho mi gordita prechiocha!🥳💗</div>
+    <button id="playAgainBtn">Volver a jugar</button>
+  </div>
+
+  <script>
+    // Esperar 2 segundos antes de mostrar el mensaje
+    setTimeout(() => {
+      const msg = document.getElementById("winnerMessage");
+      msg.style.fontSize = "30px";
+      msg.style.opacity = "1";
+
+      // Mostrar el botón después del mensaje
+      setTimeout(() => {
+        document.getElementById("playAgainBtn").style.display = "inline-block";
+      }, 1000);
+    }, 2000);
+
+    // Botón para reiniciar el juego
+    const playAgainBtn = document.getElementById("playAgainBtn");
+    playAgainBtn.addEventListener("click", () => {
+      window.location.href = "index.html"; // Redirige al juego principal
+    });
+  </script>
+</body>
+</html>
