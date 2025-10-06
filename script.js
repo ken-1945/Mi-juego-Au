@@ -67,12 +67,43 @@ function startGame() {
   canvas.addEventListener("click", shoot);
   document.addEventListener("keydown", movePlayer);
 
+  // 👇 Soporte para MÓVIL
+  setupMobileControls();
+
   requestAnimationFrame(gameLoop);
 }
 
+// ====== CONTROLES DE PC ======
 function movePlayer(e) {
   if (e.key === "ArrowLeft" && player.x > 0) player.x -= 20;
   if (e.key === "ArrowRight" && player.x + player.w < canvas.width) player.x += 20;
+}
+
+// ====== CONTROLES DE CELULAR ======
+function setupMobileControls() {
+  let lastTap = 0;
+  let startX = null;
+
+  canvas.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    const currentTime = new Date().getTime();
+
+    // Doble toque → disparar
+    if (currentTime - lastTap < 300) {
+      shoot();
+    }
+    lastTap = currentTime;
+    startX = touch.clientX;
+  });
+
+  canvas.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0];
+    const moveX = touch.clientX - startX;
+    player.x += moveX * 0.3; // suaviza el movimiento
+    if (player.x < 0) player.x = 0;
+    if (player.x + player.w > canvas.width) player.x = canvas.width - player.w;
+    startX = touch.clientX;
+  });
 }
 
 function shoot() {
@@ -123,7 +154,7 @@ function gameLoop() {
     bullets.forEach((b, bi) => {
       if (!en.hit && collidePoint(b, en)) {
         en.hit = true;
-        en.img.src = "img/enemy-hit.png"; 
+        en.img.src = "img/enemy-hit.png";
         bullets.splice(bi, 1);
         score++;
         updateScore();
@@ -197,6 +228,8 @@ skipBtn.addEventListener("click", () => {
 
 // ====== ENEMIGOS ======
 setInterval(spawnEnemy, 1500);
+
+
 
 
 
