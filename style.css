@@ -96,3 +96,79 @@ body {
 #restartBtn:hover {
   transform: scale(1.05);
 }
+
+
+/* INSTRUCCIONES */
+#instructions {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.instructions-box {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.instructions-box h1 {
+  margin-bottom: 20px;
+  color: #ff4d6d;
+}
+
+.instructions-box ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.instructions-box ul li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+#startGameBtn, #skipBtn {
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#startGameBtn {
+  background: #28a745;
+  color: white;
+}
+
+#startGameBtn:hover {
+  background: #1e7e34;
+}
+
+#skipBtn {
+  background: #ff4d6d;
+  color: white;
+}
+
+#skipBtn:hover {
+  background: #e60039;
+}
+
