@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #ffb6c1, #ffe6f0);
+  font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* LOGIN */
+#login h2 {
+  color: #d63384;
+  margin-bottom: 15px;
+}
+
+#password {
+  width: 220px;
+  height: 45px;
+  font-size: 1.2em;
+  text-align: center;
+  border-radius: 10px;
+  border: 2px solid #ff6699;
+  margin-bottom: 15px;
+}
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 15px;
+  justify-content: center;
+}
+
+.numpad button {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  border: none;
+  background: radial-gradient(circle, #ff6699, #d63384);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: 0.2s;
+}
+
+.numpad button:hover {
+  transform: scale(1.1);
+  background: radial-gradient(circle, #e05588, #b82d6a);
+}
+
+/* JUEGO */
+#gameCanvas {
+  background: linear-gradient(180deg, #fff, #ffe6f0);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  display: block;
+  margin: auto;
+}
+
+#score {
+  background: rgba(255,255,255,0.8);
+  padding: 6px 15px;
+  border-radius: 12px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #d63384;
+  margin-bottom: 8px;
+  display: inline-block;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* PANTALLA FINAL */
+#endScreen {
+  text-align: center;
+}
+
+#endScreen h2 {
+  color: #d63384;
+}
+
+#restartBtn {
+  background: radial-gradient(circle, #ff6699, #d63384);
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.2em;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#restartBtn:hover {
+  transform: scale(1.05);
+}
